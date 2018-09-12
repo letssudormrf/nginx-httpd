@@ -7,8 +7,8 @@ set_projectv_var() {
 
 # [Log:vars]
 export ACCESS_LOG=${ACCESS_LOG:-"/dev/null"}
-export ERROR_LOG=${ERROR_LOG:-"/dev/stderr"}
-export LOG_LEVEL=${LOG_LEVEL:-"warning"}
+export ERROR_LOG=${ERROR_LOG:-"/dev/null"}
+export LOG_LEVEL=${LOG_LEVEL:-"none"}
 export CADDY_LOG=${CADDY_LOG:-"/dev/null"}
 
 # [Mode:vars]
