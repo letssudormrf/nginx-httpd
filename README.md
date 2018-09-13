@@ -3,15 +3,15 @@
 Quick Start
 -----------
 
-For docker run command.
+For docker run command example
 
-    docker run -d -p 80:8080/tcp -p 443:8443/udp --name nginx-httpd letssudormrf/nginx-httpd
+    docker run -d --restart always -v /mnt/:/tmp/ -p 80:8080 -p 443:8443 -e FORWARDPROXY=ON -e BASICAUTH="user password" -e UUID=117ff1a7-d810-4ec7-b368-6fc4491a4435 -e WSPATH=/v2/ -e FAILOVER=www.example.com -e TLS=your_email@example.com -e DOMAIN=your-domain.example.com --name nginx-httpd letssudormrf/nginx-httpd
 
-Keep the Docker container running automatically after starting, add **--restart always**.
+Outbound enable the socks5 proxy example
 
-    docker run --restart always -d -p 80:8080/tcp -p 443:8443/udp --name nginx-httpd letssudormrf/nginx-httpd
+    docker run -d --restart always -p 80:8080 -p 443:8443 -e PROXY="ON" -e PROXYIP="127.0.0.1" -e PROXYPORT="1080" --name nginx-httpd letssudormrf/nginx-httpd
 
-Outbound enable the socks5 proxy
+Create CERT & KEY Environment
 
-    docker run --restart always -d -p 80:8080/tcp -p 443:8443/udp -e PROXY="ON" -e PROXYIP="127.0.0.1" -e PROXYPORT="1080" --name nginx-httpd letssudormrf/nginx-httpd
-
+    cat fullchain.cer | sed ':a;N;$!ba;s#\n#\\n#g'
+    cat www.example.com.key | sed ':a;N;$!ba;s#\n#\\n#g'
