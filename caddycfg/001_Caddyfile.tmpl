@@ -1,12 +1,16 @@
 ${DOMAIN}:${HTTP_PORT} {
 tls off
 timeouts none
+proxy ${DOHPATH} https://dns.google.com/ {
+without ${DOHPATH}
+}
 proxy ${WSPATH} localhost:${V2_PORT} {
 websocket
 header_upstream -Origin
 }
 redir 301 {
 if {path} not ${WSPATH}
+if {path} not_has ${DOHPATH}
 / {scheme}://${FAILOVER}{uri}
 }
 }
@@ -14,12 +18,16 @@ if {path} not ${WSPATH}
 ${DOMAIN}:${HTTPS_PORT} {
 tls ${TLS}
 timeouts none
+proxy ${DOHPATH} https://dns.google.com/ {
+without ${DOHPATH}
+}
 proxy ${WSPATH} localhost:${V2_PORT} {
 websocket
 header_upstream -Origin
 }
 redir 301 {
 if {path} not ${WSPATH}
+if {path} not_has ${DOHPATH}
 / {scheme}://${FAILOVER}{uri}
 }
 }
